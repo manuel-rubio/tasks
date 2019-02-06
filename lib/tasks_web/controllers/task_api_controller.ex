@@ -6,8 +6,13 @@ defmodule TasksWeb.TaskApiController do
 
   action_fallback TasksWeb.FallbackController
 
+  defp txt2prio("high"), do: 1
+  defp txt2prio("medium"), do: 2
+  defp txt2prio("low"), do: 3
+  defp txt2prio(_), do: 0
+
   def index(conn, %{"priority" => priority}) do
-    tasks = Schema.list_tasks(priority: priority)
+    tasks = Schema.list_tasks(priority: txt2prio(priority))
     render(conn, "index.json", tasks: tasks)
   end
   def index(conn, params) do

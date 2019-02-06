@@ -24,7 +24,7 @@
         <%= for task <- @tasks do %>
         <tr>
           <td><%= task.content %></td>
-          <td><%= task.priority %></td>
+          <td><%= prio2txt(task.priority) %></td>
 
           <td class="text-right">
             <span><%= link "Show", to: task_path(@conn, :show, task), class: "btn btn-default btn-xs" %></span>
