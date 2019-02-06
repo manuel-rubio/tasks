@@ -1,0 +1,45 @@
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Listing Tasks</h6>
+  </div>
+  <div class="card-body">
+    <%= if length(@tasks) > 0 do %>
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th>Content</th>
+            <th>Priority</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <th>Content</th>
+            <th>Priority</th>
+            <th></th>
+          </tr>
+        </tfoot>
+        <tbody>
+        <%= for task <- @tasks do %>
+        <tr>
+          <td><%= task.content %></td>
+          <td><%= task.priority %></td>
+
+          <td class="text-right">
+            <span><%= link "Show", to: task_path(@conn, :show, task), class: "btn btn-default btn-xs" %></span>
+            <span><%= link "Edit", to: task_path(@conn, :edit, task), class: "btn btn-default btn-xs" %></span>
+            <span><%= link "Delete", to: task_path(@conn, :delete, task), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+          </td>
+        </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+    <% else %>
+    <p>There are no tasks created yet.</p>
+    <% end %>
+
+    <span><%= link "New Task", to: task_path(@conn, :new), class: "btn btn-primary" %></span>
+  </div>
+</div>

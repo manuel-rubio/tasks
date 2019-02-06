@@ -1,0 +1,20 @@
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Show Task</h6>
+  </div>
+  <div class="card-body">
+    <ul>
+      <li>
+        <strong>Content:</strong>
+        <%= @task.content %>
+      </li>
+      <li>
+        <strong>Priority:</strong>
+        <%= @task.priority %>
+      </li>
+    </ul>
+
+    <span><%= link "Edit", to: task_path(@conn, :edit, @task), class: "btn btn-secondary" %></span>
+    <span><%= link "Back", to: task_path(@conn, :index), class: "btn btn-secondary" %></span>
+  </div>
+</div>
