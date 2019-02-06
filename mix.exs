@@ -44,6 +44,9 @@ defmodule Tasks.Mixfile do
       {:cowboy, "~> 1.0"},
       {:joken, "~> 2.0"},
       {:jason, "~> 1.1"},
+
+      # for releases
+      {:distillery, "~> 2.0"},
     ]
   end
 
