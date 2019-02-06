@@ -22,6 +22,12 @@ defmodule Tasks.Schema do
     |> order_by(asc: :priority, asc: :content)
     |> Repo.all()
   end
+  def list_tasks(priority: priority) do
+    Task
+    |> where(priority: ^priority)
+    |> order_by(asc: :priority, asc: :content)
+    |> Repo.all()
+  end
 
   @doc """
   Gets a single task.

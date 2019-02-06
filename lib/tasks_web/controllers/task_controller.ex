@@ -16,7 +16,7 @@ defmodule TasksWeb.TaskController do
 
   def create(conn, %{"task" => task_params}) do
     case Schema.create_task(task_params) do
-      {:ok, task} ->
+      {:ok, _task} ->
         conn
         |> put_flash(:info, "Task created successfully.")
         |> redirect(to: task_path(conn, :index))
@@ -40,7 +40,7 @@ defmodule TasksWeb.TaskController do
     task = Schema.get_task!(id)
 
     case Schema.update_task(task, task_params) do
-      {:ok, task} ->
+      {:ok, _task} ->
         conn
         |> put_flash(:info, "Task updated successfully.")
         |> redirect(to: task_path(conn, :index))

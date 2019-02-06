@@ -16,11 +16,13 @@ defmodule TasksWeb.Router do
   scope "/", TasksWeb do
     pipe_through :browser # Use the default browser stack
 
-    resources "/", TaskController
+    get "/", TaskController, :index
+    resources "/tasks", TaskController, except: [:index]
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", TasksWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", TasksWeb do
+    pipe_through :api
+
+    resources "/tasks", TaskApiController, execpt: [:new, :edit]
+  end
 end
