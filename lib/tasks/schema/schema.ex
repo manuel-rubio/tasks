@@ -28,6 +28,11 @@ defmodule Tasks.Schema do
     |> order_by(asc: :priority, asc: :content)
     |> Repo.all()
   end
+  def list_tasks(search: search) do
+    like_term = "%#{search}%"
+    from(t in Task, where: like(t.content, ^like_term))
+    |> Repo.all()
+  end
 
   @doc """
   Gets a single task.

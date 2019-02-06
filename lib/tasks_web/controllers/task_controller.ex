@@ -7,9 +7,13 @@ defmodule TasksWeb.TaskController do
   @doc """
        Show the list of tasks.
        """
+  def index(conn, %{"search" => search}) do
+    tasks = Schema.list_tasks(search: search)
+    render(conn, "index.html", tasks: tasks, search: search)
+  end
   def index(conn, _params) do
     tasks = Schema.list_tasks()
-    render(conn, "index.html", tasks: tasks)
+    render(conn, "index.html", tasks: tasks, search: "")
   end
 
   @doc """
