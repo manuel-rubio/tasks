@@ -6,6 +6,8 @@ defmodule Tasks.Application do
   def start(_type, _args) do
     import Supervisor.Spec
 
+    initial_tokens = Application.get_env :tasks, :tokens
+
     # Define workers and child supervisors to be supervised
     children = [
       # Start the Ecto repository
@@ -13,7 +15,7 @@ defmodule Tasks.Application do
       # Start the endpoint when the application starts
       supervisor(TasksWeb.Endpoint, []),
       # Start your own worker by calling: Tasks.Worker.start_link(arg1, arg2, arg3)
-      # worker(Tasks.Worker, [arg1, arg2, arg3]),
+       worker(Tasks.Auth, initial_tokens),
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

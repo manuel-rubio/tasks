@@ -56,3 +56,6 @@ config :tasks, Tasks.Repo,
   database: "tasks_dev",
   hostname: "localhost",
   pool_size: 10
+
+config :tasks,
+  tokens: ["1234"]

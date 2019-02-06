@@ -3,8 +3,29 @@ defmodule TasksWeb.TaskApiController do
 
   alias Tasks.Schema
   alias Tasks.Schema.Task
+  alias Tasks.Auth
 
+  plug :check_token, only: [:update, :create, :delete]
   action_fallback TasksWeb.FallbackController
+
+  defp check_token(conn, only: actions) do
+    if conn.private.phoenix_action in actions do
+      let_do_this = case List.keyfind(conn.req_headers, "authorization", 0) do
+        {"authorization", "Bearer " <> token} -> Auth.check(token)
+        _ -> false
+      end
+      if let_do_this do
+        conn
+      else
+        conn
+        |> put_status(:forbidden)
+        |> render(TasksWeb.ErrorView, :"403")
+        |> halt()
+      end
+    else
+      conn
+    end
+  end
 
   defp txt2prio("high"), do: 1
   defp txt2prio("medium"), do: 2
@@ -15,7 +36,7 @@ defmodule TasksWeb.TaskApiController do
     tasks = Schema.list_tasks(priority: txt2prio(priority))
     render(conn, "index.json", tasks: tasks)
   end
-  def index(conn, params) do
+  def index(conn, _params) do
     tasks = Schema.list_tasks()
     render(conn, "index.json", tasks: tasks)
   end
