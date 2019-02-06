@@ -61,4 +61,17 @@ config :logger, level: :info
 
 # Finally import the config/prod.secret.exs
 # which should be versioned separately.
-import_config "prod.secret.exs"
+#import_config "prod.secret.exs"
+# Configure your database
+config :tasks, Dymmer.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  hostname: "${POSTGRES_HOST}",
+  username: "${POSTGRES_USER}",
+  password: "${POSTGRES_PASS}",
+  database: "${POSTGRES_DB}",
+  pool_size: 1
+
+
+config :tasks, tokens: ["${NORMAL_TOKEN}"]
+
+config :joken, default_signer: "${JWT_SECRET}"
