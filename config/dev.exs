@@ -57,5 +57,6 @@ config :tasks, Tasks.Repo,
   hostname: "localhost",
   pool_size: 10
 
-config :tasks,
-  tokens: ["1234"]
+config :tasks, tokens: ["1234"]
+
+config :joken, default_signer: "secret"

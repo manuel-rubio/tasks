@@ -23,6 +23,7 @@ defmodule TasksWeb.Router do
   scope "/api", TasksWeb do
     pipe_through :api
 
-    resources "/tasks", TaskApiController, execpt: [:new, :edit]
+    resources "/tasks", TaskApiController, except: [:new, :edit]
+    post "/register", UserController, :register
   end
 end

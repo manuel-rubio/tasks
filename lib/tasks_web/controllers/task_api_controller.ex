@@ -1,9 +1,8 @@
 defmodule TasksWeb.TaskApiController do
   use TasksWeb, :controller
 
-  alias Tasks.Schema
   alias Tasks.Schema.Task
-  alias Tasks.Auth
+  alias Tasks.{Schema, Auth, Token}
 
   plug :check_token, only: [:update, :create, :delete]
   action_fallback TasksWeb.FallbackController
@@ -11,7 +10,14 @@ defmodule TasksWeb.TaskApiController do
   defp check_token(conn, only: actions) do
     if conn.private.phoenix_action in actions do
       let_do_this = case List.keyfind(conn.req_headers, "authorization", 0) do
-        {"authorization", "Bearer " <> token} -> Auth.check(token)
+        {"authorization", "Bearer token-" <> token} -> Auth.check(token)
+        {"authorization", "Bearer " <> jwt} ->
+          case Token.verify_and_validate(jwt) do
+            {:ok, %{"user" => user, "pass" => pass}} ->
+              Auth.check(%{"user" => user, "pass" => pass})
+            {:error, :signature_error} ->
+              false
+          end
         _ -> false
       end
       if let_do_this do

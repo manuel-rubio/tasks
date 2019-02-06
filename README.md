@@ -18,3 +18,14 @@ The API endpoint uses these URLs:
 ```json
 {"task":{"content": "API task", "priority": 2}}
 ```
+
+The `POST` request for API requires validation. It could be in two different ways:
+
+1. Use `Authorization: Bearer token-1234` or other token added in `Tasks.Auth` server.
+2. Register your user vía the new endpoint `POST /api/register` using the following payload:
+
+```json
+{"user": "manuel", "pass": "1234"}
+```
+
+You'll get then a JWT token and then use it as `Authorization: Bearer <token>`.
