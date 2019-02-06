@@ -1,0 +1,7 @@
+CREATE TABLE public.tasks (
+    id SERIAL NOT NULL PRIMARY KEY,
+    content VARCHAR(255),
+    priority INTEGER,
+    inserted_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL
+);
