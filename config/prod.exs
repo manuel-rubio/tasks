@@ -63,7 +63,7 @@ config :logger, level: :info
 # which should be versioned separately.
 #import_config "prod.secret.exs"
 # Configure your database
-config :tasks, Dymmer.Repo,
+config :tasks, Tasks.Repo,
   adapter: Ecto.Adapters.Postgres,
   hostname: "${POSTGRES_HOST}",
   username: "${POSTGRES_USER}",
